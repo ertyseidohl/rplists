@@ -6,13 +6,11 @@ var ListView = React.createClass({
 			);
 		} else {
 			return (
-				<table>
-					{this.props.items.map(function(item) {
-						return <tr key={item.pk_item_id}>
-							<td>{item.content}</td>
-						</tr>;
+				<div>
+					{this.props.items.map(function(item, index) {
+						return <ItemRow editable={false} item={item} key={index} />;
 					})}
-				</table>
+				</div>
 			);
 		}
 	}

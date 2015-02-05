@@ -45,7 +45,7 @@ var ListArea = React.createClass({
 
 	render: function() {
 		return (
-			<div className="list_area">
+			<div>
 				<ListSelector
 					lists={this.state.lists}
 					selectedList={this.state.selectedList}

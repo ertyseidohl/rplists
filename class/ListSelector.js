@@ -6,7 +6,7 @@ var ListSelector = React.createClass({
 			);
 		} else {
 			return (
-				<div className="list_selector">
+				<div>
 					<select onChange={this.props.onChange}>
 						{this.props.lists.map(function(list) {
 							return (
