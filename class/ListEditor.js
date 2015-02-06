@@ -34,28 +34,38 @@ var ListEditor = React.createClass({
 		this.setState({
 			state : STATE_SUBMITTING
 		});
-		$.post(
-			'./api/post.php',
+		var params = {
+			items : this.state.items.map(function(item) {
+				return item.content;
+			})
+		};
+		if (this.props.isExisting) {
+			params.list = this.props.listId;
+		} else {
+			params.title = this.state.title;
+		}
+		$.ajax(
+			this.props.isExisting ? "./api/put.php" : "./api/post.php",
 			{
-				title : this.state.title,
-				items : this.state.items.map(function(item) {
-					return item.content;
-				})
-			},
-			function(result) {
-				if (result == "success") {
-					this.setState({
-						error : "",
-						state : STATE_SUBMITTED
-					});
-				} else {
+				type : "POST",
+				data : params,
+				dataType : "text",
+				context : this,
+				success : function(result) {
+					if (result == "success") {
+						this.setState({
+							error : "",
+							state : STATE_SUBMITTED
+						});
+					}
+				},
+				error : function(result) {
 					this.setState({
 						error : "There was an error. Please try again.",
 						state : STATE_EDITING
-					})
+					});
 				}
-			}.bind(this),
-			'text'
+			}
 		);
 	},
 	onTitleChange : function(event) {
@@ -69,6 +79,9 @@ var ListEditor = React.createClass({
 		);
 	},
 	render: function() {
+		if (this.props.isExisting && !this.props.listId) {
+			return (<div></div>);
+		}
 		switch(this.state.state) {
 			case STATE_SUBMITTING:
 				return (
@@ -88,7 +101,11 @@ var ListEditor = React.createClass({
 				return (
 					<div>
 						<p>{this.state.error}</p>
-						<input type="text" placeholder="title" onChange={this.onTitleChange} />
+						{
+							this.props.isExisting ?
+							null :
+							<input type="text" placeholder="title" onChange={this.onTitleChange} />
+						}
 						{
 							this.state.items.map(function(item, index){
 								return (<ItemRow editable={true} item={item} index={index} key={index} onChange={this.onRowChange} onDelete={this.onRowDelete} />);

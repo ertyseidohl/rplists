@@ -2,22 +2,23 @@ var ListArea = React.createClass({
 	getInitialState : function() {
 		return {
 			lists : [],
-			selectedList : undefined,
+			selectedListIndex : undefined,
 			isLoadingListSelector : true,
 			isLoadingListItems : true
 		};
 	},
 
 	onListSelectorChange : function(event) {
+		console.log($(event.target).val());
 		this.changeSelectedList($(event.target).val());
 	},
 
-	changeSelectedList : function(newList) {
-		this.state.selectedList = newList;
+	changeSelectedList : function(newListIndex) {
+		this.state.selectedListIndex = newListIndex;
 		this.setState({
 			isLoadingListItems : true
 		});
-		$.get('./api/get.php?list=' + newList, function(result) {
+		$.get('./api/get.php?list=' + this.state.lists[newListIndex].pk_list_id, function(result) {
 			if (this.isMounted()) {
 				this.setState({
 					items : eval(result),
@@ -38,7 +39,7 @@ var ListArea = React.createClass({
 					lists : newLists,
 					isLoadingListSelector : false
 				});
-				this.changeSelectedList(newLists[0].pk_list_id);
+				this.changeSelectedList(0);
 			}
 		}.bind(this));
 	},
@@ -48,13 +49,21 @@ var ListArea = React.createClass({
 			<div>
 				<ListSelector
 					lists={this.state.lists}
-					selectedList={this.state.selectedList}
+					selectedListIndex={this.state.selectedListIndex}
 					onChange={this.onListSelectorChange}
 					isLoading={this.state.isLoadingListSelector}
 				/>
 				<ListView
 					isLoading={this.state.isLoadingListItems}
 					items={this.state.items || []}
+				/>
+				<ListEditor
+					isExisting={true}
+					listId={
+						this.state.lists[this.state.selectedListIndex] ?
+						this.state.lists[this.state.selectedListIndex].pk_list_id :
+						false
+					}
 				/>
 			</div>
 		);

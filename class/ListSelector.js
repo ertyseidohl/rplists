@@ -8,9 +8,9 @@ var ListSelector = React.createClass({
 			return (
 				<div>
 					<select onChange={this.props.onChange}>
-						{this.props.lists.map(function(list) {
+						{this.props.lists.map(function(list, index) {
 							return (
-								<option value={list.pk_list_id} key={list.pk_list_id}>{list.title}</option>
+								<option value={index} key={index}>{list.title}</option>
 							);
 						})}
 					</select>
