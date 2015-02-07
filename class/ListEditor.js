@@ -26,6 +26,9 @@ var ListEditor = React.createClass({
 	},
 	onRowDelete : function(index, event) {
 		this.state.items.splice(index, 1);
+		if (!this.state.items.length) {
+			this.state.items = this.getInitialState().items;
+		}
 		this.setState({
 			items : this.state.items
 		});
@@ -85,33 +88,47 @@ var ListEditor = React.createClass({
 		switch(this.state.state) {
 			case STATE_SUBMITTING:
 				return (
-					<div>
+					<p>
 						Submitting list...
-					</div>
+					</p>
 				);
 			case STATE_SUBMITTED:
 				return (
-					<div>
+					<p>
 						List has been submitted and is awaiting moderator approval.
 						<button onClick={this.onSubmitAnother}>Submit Another</button>
-					</div>
+					</p>
 				);
 			case STATE_EDITING:
 			default:
 				return (
 					<div>
-						<p>{this.state.error}</p>
+						{
+							this.state.error ?
+							<p>{this.state.error}</p> :
+							null
+						}
 						{
 							this.props.isExisting ?
 							null :
-							<input type="text" placeholder="title" onChange={this.onTitleChange} />
+							<p><input type="text" placeholder="title" onChange={this.onTitleChange} /></p>
 						}
 						{
 							this.state.items.map(function(item, index){
-								return (<ItemRow editable={true} item={item} index={index} key={index} onChange={this.onRowChange} onDelete={this.onRowDelete} />);
+								return (
+									<ItemRow
+										editable={true}
+										item={item}
+										index={index}
+										key={index}
+										onChange={this.onRowChange}
+										onDelete={this.onRowDelete}
+										placeholder={this.props.isExisting ? "Suggest Something" : "New Row"}
+									/>
+								);
 							}.bind(this))
 						}
-						<button onClick={this.onSubmit}>Submit List</button>
+						<p><button onClick={this.onSubmit}>Submit List</button></p>
 					</div>
 				);
 		}

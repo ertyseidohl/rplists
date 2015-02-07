@@ -1,0 +1,30 @@
+/* CSS for index.html */
+
+@media (min-width: 1024px) {
+	html {
+		background: url(../img/background.png) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+}
+
+#content {
+	background-color: rgba(255, 255, 255 , 0.8);
+	margin: 1em;
+	padding: 1em;
+	font-family: 'Arvo', serif;
+	font-size: 1.1em;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0;
+	padding: .5em 0;
+}
+
+input, button, select{
+	padding: .5em;
+	border : none;
+	background-color: #bbb;
+}

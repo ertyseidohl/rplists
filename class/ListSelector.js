@@ -7,13 +7,15 @@ var ListSelector = React.createClass({
 		} else {
 			return (
 				<div>
-					<select onChange={this.props.onChange}>
-						{this.props.lists.map(function(list, index) {
-							return (
-								<option value={index} key={index}>{list.title}</option>
-							);
-						})}
-					</select>
+					<p>
+						<select onChange={this.props.onChange}>
+							{this.props.lists.map(function(list, index) {
+								return (
+									<option value={index} key={index}>{list.title}</option>
+								);
+							})}
+						</select>
+					</p>
 				</div>
 			);
 		}
