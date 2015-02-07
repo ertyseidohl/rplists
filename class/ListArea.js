@@ -62,7 +62,7 @@ var ListArea = React.createClass({
 					listId={
 						this.state.lists[this.state.selectedListIndex] ?
 						this.state.lists[this.state.selectedListIndex].pk_list_id :
-						false
+						0
 					}
 				/>
 			</div>
