@@ -2,7 +2,7 @@ var ListSelector = React.createClass({
 	render: function() {
 		if (this.props.isLoading) {
 			return (
-				<p>Loading...</p>
+				<select><option>Loading...</option></select>
 			);
 		} else {
 			return (

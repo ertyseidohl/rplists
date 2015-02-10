@@ -2,7 +2,7 @@ var ItemRow = React.createClass({
 	render: function() {
 		if (this.props.editable) {
 			return (
-				<p class="item-row__new">
+				<p className="item-row item-row__new">
 					<input
 						placeholder={this.props.placeholder}
 						value={this.props.item.content}
@@ -13,7 +13,7 @@ var ItemRow = React.createClass({
 			);
 		} else {
 			return (
-				<p class="item-row__row">
+				<p className="item-row item-row__row">
 					{this.props.item.content}
 				</p>
 			);

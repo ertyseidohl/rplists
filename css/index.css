@@ -1,6 +1,6 @@
 /* CSS for index.html */
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
 	html {
 		background: url(../img/background.png) no-repeat center center fixed;
 		-webkit-background-size: cover;
@@ -10,11 +10,20 @@
 	}
 }
 
+a {
+	cursor: pointer;
+	color: #444;
+}
+
+.active-tab {
+	color: black;
+}
+
 #content {
 	background-color: rgba(255, 255, 255 , 0.8);
 	margin: 1em;
 	padding: 1em;
-	font-family: 'Arvo', serif;
+	font-family: sans-serif;
 	font-size: 1.1em;
 }
 
@@ -40,4 +49,21 @@ input, button, select{
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
    color:    #777;
+}
+
+
+.list-view {
+	background : white;
+}
+.item-row__row {
+	padding: 0.5em 1em;
+	border: 1px solid #ddd;
+	border-top : 0;
+}
+.item-row__row:nth-child(odd) {
+	background-color: #ddd;
+	border-color: #ccc;
+}
+.item-row__row:first-child {
+	border-top: 1px solid #ccc;
 }

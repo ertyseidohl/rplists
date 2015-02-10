@@ -6,7 +6,7 @@ var ListView = React.createClass({
 			);
 		} else {
 			return (
-				<div>
+				<div className="list-view">
 					{this.props.items.map(function(item, index) {
 						return <ItemRow editable={false} item={item} key={index} />;
 					})}
