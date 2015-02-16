@@ -10,7 +10,7 @@ var ListEditor = React.createClass({
 			],
 			title : "",
 			state : STATE_EDITING,
-			showAddSuggestions : false
+			showAddSuggestions : this.props.showAddSuggestions || false
 		}
 	},
 	onRowChange : function(index, event) {

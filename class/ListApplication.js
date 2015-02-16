@@ -41,7 +41,9 @@ var ListApplication = React.createClass({
 				{
 					this.state.tab == "submit" ?
 						<div>
-							<ListEditor />
+							<ListEditor
+								showAddSuggestions={true}
+							/>
 						</div> :
 					null
 				}
