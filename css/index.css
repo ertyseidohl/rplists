@@ -32,10 +32,15 @@ h1, h2, h3, h4, h5, h6, p {
 	padding: .5em 0;
 }
 
-input, button, select{
+input, button, select, textarea{
 	padding: .5em;
 	border : none;
 	background-color: #bbb;
+}
+
+textarea {
+	width: 800px;
+	height: 300px;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -55,15 +60,25 @@ input, button, select{
 .list-view {
 	background : white;
 }
-.item-row__row {
+.item-row td,
+.list-view th {
 	padding: 0.5em 1em;
 	border: 1px solid #ddd;
 	border-top : 0;
 }
-.item-row__row:nth-child(odd) {
+.item-row:nth-child(odd) {
 	background-color: #ddd;
 	border-color: #ccc;
 }
-.item-row__row:first-child {
+.item-row:first-child {
 	border-top: 1px solid #ccc;
+}
+
+.contact td {
+	padding: 0.5em 1em;
+	vertical-align: text-top;
+}
+
+.error {
+	color: red;
 }

@@ -1,4 +1,15 @@
 var ItemRow = React.createClass({
+	getItemSource : function() {
+		if (this.props.item.source) {
+			return (
+				<a href="{this.props.item.source_link}">{this.props.item.source}</a>
+			);
+		} else {
+			return (
+				"anonymous"
+			);
+		}
+	},
 	render: function() {
 		if (this.props.editable) {
 			return (
@@ -13,9 +24,11 @@ var ItemRow = React.createClass({
 			);
 		} else {
 			return (
-				<p className="item-row item-row__row">
-					{this.props.item.content}
-				</p>
+				<tr className="item-row">
+					<td>{this.props.index + 1}</td>
+					<td>{this.props.item.content}</td>
+					<td>{this.getItemSource()}</td>
+				</tr>
 			);
 		}
 	}
