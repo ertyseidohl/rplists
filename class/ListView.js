@@ -13,8 +13,16 @@ var ListView = React.createClass({
 						<th>Source</th>
 					</tr>
 					{this.props.items.map(function(item, index) {
-						return <ItemRow index={index} editable={false} item={item} key={index} />;
-					})}
+						return (
+							<ItemRow
+								getSource={this.props.getSource}
+								index={index}
+								editable={false}
+								item={item}
+								key={index}
+							/>
+						);
+					}.bind(this))}
 				</table>
 			);
 		}

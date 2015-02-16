@@ -36,6 +36,11 @@ input, button, select, textarea{
 	padding: .5em;
 	border : none;
 	background-color: #bbb;
+	min-width: 300px;
+}
+
+button.del {
+	min-width: 0;
 }
 
 textarea {

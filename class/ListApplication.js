@@ -1,8 +1,20 @@
 var ListApplication = React.createClass({
 	getInitialState : function() {
+		$.get(
+			"./api/sources.php",
+			{},
+			function(result) {
+				console.log(result);
+				this.setState({
+					sources : eval(result)
+				});
+			}.bind(this),
+			"json"
+		);
 		return {
-			tab : "browse"
-		}
+			tab : "browse",
+			sources : []
+		};
 	},
 	changeTabBrowse : function() {
 		this.setState({
@@ -19,6 +31,11 @@ var ListApplication = React.createClass({
 			tab : "about"
 		});
 	},
+	getSource : function(sourceId) {
+		return this.state.sources.filter(function(s) {
+			return s.pk_source_id == sourceId;
+		})[0];
+	},
 	render: function() {
 		return(
 			<div>
@@ -34,7 +51,9 @@ var ListApplication = React.createClass({
 				{
 					this.state.tab == "browse" ?
 						<div>
-							<ListArea />
+							<ListArea
+								getSource={this.getSource}
+							/>
 						</div> :
 					null
 				}
@@ -43,6 +62,7 @@ var ListApplication = React.createClass({
 						<div>
 							<ListEditor
 								showAddSuggestions={true}
+								getSource={this.getSource}
 							/>
 						</div> :
 					null

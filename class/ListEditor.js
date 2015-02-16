@@ -107,42 +107,45 @@ var ListEditor = React.createClass({
 				);
 			case STATE_EDITING:
 			default:
-				return (
-					<div>
-						{
-							this.state.error ?
-							<p>{this.state.error}</p> :
-							null
-						}
-						{
-							this.props.isExisting ?
-							null :
-							<p><input type="text" placeholder="title" onChange={this.onTitleChange} /></p>
-						}
-						{
-							this.state.showAddSuggestions ?
-							this.state.items.map(function(item, index){
-								return (
-									<ItemRow
-										editable={true}
-										item={item}
-										index={index}
-										key={index}
-										onChange={this.onRowChange}
-										onDelete={this.onRowDelete}
-										placeholder={this.props.isExisting ? "Suggest Something" : "New Row"}
-									/>
-								);
-							}.bind(this)) :
-							null
-						}
-						{
-							this.state.showAddSuggestions ?
-							<p><button onClick={this.onSubmit}>Submit Suggestions</button></p> :
-							<p><button onClick={this.showAddSuggestions}>Suggest new items</button></p>
-						}
-					</div>
-				);
+				if (this.state.showAddSuggestions) {
+					return (
+						<div>
+							{
+								this.state.error ?
+								<p>{this.state.error}</p> :
+								null
+							}
+							{
+								this.props.isExisting ?
+								null :
+								<p><input type="text" placeholder="title" onChange={this.onTitleChange} /></p>
+							}
+							<table>
+								{
+									this.state.items.map(function(item, index){
+										return (
+											<ItemRow
+												editable={true}
+												item={item}
+												index={index}
+												key={index}
+												onChange={this.onRowChange}
+												onDelete={this.onRowDelete}
+												placeholder={this.props.isExisting ? "Suggest Something" : "New Row"}
+												getSource={this.props.getSource}
+											/>
+										);
+									}.bind(this))
+								}
+							</table>
+							<p><button onClick={this.onSubmit}>Submit Suggestions</button></p>
+						</div>
+					);
+				} else {
+					return (
+						<p><button onClick={this.showAddSuggestions}>Suggest new items</button></p>
+					);
+				}
 		}
 	}
 });

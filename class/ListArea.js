@@ -56,6 +56,7 @@ var ListArea = React.createClass({
 				<ListView
 					isLoading={this.state.isLoadingListItems}
 					items={this.state.items || []}
+					getSource={this.props.getSource}
 				/>
 				<ListEditor
 					isExisting={true}
@@ -64,6 +65,7 @@ var ListArea = React.createClass({
 						this.state.lists[this.state.selectedListIndex].pk_list_id :
 						0
 					}
+					getSource={this.props.getSource}
 				/>
 			</div>
 		);
