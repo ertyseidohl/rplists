@@ -6,7 +6,10 @@ var ListEditor = React.createClass({
 	getInitialState : function() {
 		return {
 			items : [
-				{content : ""}
+				{
+					content : "",
+					source : 0
+				}
 			],
 			title : "",
 			state : STATE_EDITING,
@@ -18,9 +21,19 @@ var ListEditor = React.createClass({
 		newState.items[index].content = $(event.target).val();
 		if (index == this.state.items.length - 1) {
 			newState.items.push(
-				{content : ""}
+				{
+					content : "",
+					source : this.state.items[index].source
+				}
 			);
 		}
+		this.setState({
+			items : newState.items
+		});
+	},
+	onRowSourceChange : function(index, event){
+		var newState = this.state;
+		newState.items[index].source = $(event.target).val();
 		this.setState({
 			items : newState.items
 		});
@@ -120,23 +133,33 @@ var ListEditor = React.createClass({
 								null :
 								<p><input type="text" placeholder="title" onChange={this.onTitleChange} /></p>
 							}
-							<table>
-								{
-									this.state.items.map(function(item, index){
-										return (
-											<ItemRow
-												editable={true}
-												item={item}
-												index={index}
-												key={index}
-												onChange={this.onRowChange}
-												onDelete={this.onRowDelete}
-												placeholder={this.props.isExisting ? "Suggest Something" : "New Row"}
-												getSource={this.props.getSource}
-											/>
-										);
-									}.bind(this))
-								}
+							<table className="list-editor">
+								<thead>
+									<tr>
+										<th>Item</th>
+										<th>Source</th>
+										<th>Del</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										this.state.items.map(function(item, index){
+											return (
+												<ItemRow
+													editable={true}
+													item={item}
+													index={index}
+													key={index}
+													onChange={this.onRowChange}
+													onDelete={this.onRowDelete}
+													placeholder={this.props.isExisting ? "Suggest Something" : "New Row"}
+													getSource={this.props.getSource}
+													onSourceChange={this.onRowSourceChange}
+												/>
+											);
+										}.bind(this))
+									}
+								</tbody>
 							</table>
 							<p><button onClick={this.onSubmit}>Submit Suggestions</button></p>
 						</div>

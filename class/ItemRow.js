@@ -2,9 +2,15 @@ var ItemRow = React.createClass({
 	getItemSource : function(){
 		if (this.props.item.fk_source_id) {
 			var source = this.props.getSource(this.props.item.fk_source_id);
-			return (
-				<a href="{source.link}">{source.name}</a>
-			);
+			if (source.link) {
+				return (
+					React.createElement('a', {href: source.link}, source.name)
+				);
+			} else {
+				return (
+					source.name
+				);
+			}
 		} else {
 			return (
 				"anonymous"
@@ -23,7 +29,21 @@ var ItemRow = React.createClass({
 						/>
 					</td>
 					<td>
-						<select>
+						<select
+							value={this.props.item.source}
+							onChange={this.props.onSourceChange.bind(null, this.props.index)}
+						>
+						<option value="0"></option>
+						{
+							this.props.getSource(-1).map(function(s) {
+								return (
+									<option
+										key={s.pk_source_id}
+										value={s.pk_source_id}
+									>{s.name}</option>
+								);
+							}.bind(this))
+						}
 						</select>
 					</td>
 					<td>
@@ -36,7 +56,7 @@ var ItemRow = React.createClass({
 				<tr className="item-row">
 					<td>{this.props.index + 1}</td>
 					<td>{this.props.item.content}</td>
-					<td>{this.getItemSource()}</td>
+					<td className="item-row__source">{this.getItemSource()}</td>
 				</tr>
 			);
 		}

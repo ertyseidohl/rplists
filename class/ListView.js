@@ -7,22 +7,26 @@ var ListView = React.createClass({
 		} else {
 			return (
 				<table className="list-view">
-					<tr>
-						<th>#</th>
-						<th></th>
-						<th>Source</th>
-					</tr>
-					{this.props.items.map(function(item, index) {
-						return (
-							<ItemRow
-								getSource={this.props.getSource}
-								index={index}
-								editable={false}
-								item={item}
-								key={index}
-							/>
-						);
-					}.bind(this))}
+					<thead>
+						<tr>
+							<th>#</th>
+							<th></th>
+							<th>Source</th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.props.items.map(function(item, index) {
+							return (
+								<ItemRow
+									getSource={this.props.getSource}
+									index={index}
+									editable={false}
+									item={item}
+									key={index}
+								/>
+							);
+						}.bind(this))}
+					</tbody>
 				</table>
 			);
 		}

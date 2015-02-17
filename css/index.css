@@ -35,17 +35,31 @@ h1, h2, h3, h4, h5, h6, p {
 input, button, select, textarea{
 	padding: .5em;
 	border : none;
-	background-color: #bbb;
+	background-color: #ddd;
 	min-width: 300px;
+}
+
+.list-editor .item-row td {
+	padding : 0;
+}
+
+.list-editor input,
+.list-editor button,
+.list-editor select {
+	background-color: transparent;
 }
 
 button.del {
 	min-width: 0;
 }
 
+table {
+	min-width: 50%;
+}
+
 textarea {
-	width: 800px;
-	height: 300px;
+	width: 100%;
+	min-height: 300px;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -71,7 +85,10 @@ textarea {
 	border: 1px solid #ddd;
 	border-top : 0;
 }
-.item-row:nth-child(odd) {
+.item-row {
+	background-color: #fff;
+}
+.item-row:nth-child(even) {
 	background-color: #ddd;
 	border-color: #ccc;
 }
@@ -82,6 +99,10 @@ textarea {
 .contact td {
 	padding: 0.5em 1em;
 	vertical-align: text-top;
+}
+
+.item-row__source {
+	min-width: 110px;
 }
 
 .error {

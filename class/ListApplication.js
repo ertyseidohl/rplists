@@ -4,7 +4,6 @@ var ListApplication = React.createClass({
 			"./api/sources.php",
 			{},
 			function(result) {
-				console.log(result);
 				this.setState({
 					sources : eval(result)
 				});
@@ -32,6 +31,9 @@ var ListApplication = React.createClass({
 		});
 	},
 	getSource : function(sourceId) {
+		if (sourceId == -1) {
+			return this.state.sources;
+		}
 		return this.state.sources.filter(function(s) {
 			return s.pk_source_id == sourceId;
 		})[0];
