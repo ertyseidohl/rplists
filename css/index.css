@@ -36,7 +36,8 @@ input, button, select, textarea{
 	padding: .5em;
 	border : none;
 	background-color: #ddd;
-	min-width: 300px;
+	width: 100%;
+	max-width: 400px;
 }
 
 .list-editor .item-row td {

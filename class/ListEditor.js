@@ -59,6 +59,17 @@ var ListEditor = React.createClass({
 		} else {
 			params.title = this.state.title;
 		}
+		var sources = this.getSource(-1).filter(function(s) {
+			return s.new_source;
+		});
+		if (sources.length) {
+			params.sources = sources.map(function(s) {
+				return {
+					name : s.name,
+					source_id : s.pk_source_id
+				};
+			});
+		}
 		$.ajax(
 			this.props.isExisting ? "./api/put.php" : "./api/post.php",
 			{
@@ -99,7 +110,10 @@ var ListEditor = React.createClass({
 		});
 	},
 	addSource : function() {
-		this.props.addSource('sourece');
+		var newSource = prompt('New Source Name');
+		if (newSource) {
+			this.props.addSource(newSource);
+		}
 	},
 	render: function() {
 		if (this.props.isExisting && !this.props.listId) {

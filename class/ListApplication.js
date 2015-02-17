@@ -39,7 +39,17 @@ var ListApplication = React.createClass({
 		})[0];
 	},
 	addSource : function(newSource) {
-		//todo
+		var newSources = this.state.sources;
+		newSources.push({
+			pk_source_id : Math.max.apply(null, newSources.map(function(s) {
+				return parseInt(s.pk_source_id, 10);
+			})) + 1,
+			name : newSource,
+			new_source : true
+		});
+		this.setState({
+			sources : newSources
+		});
 	},
 	render: function() {
 		return(
