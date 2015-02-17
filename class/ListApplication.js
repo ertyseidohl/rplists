@@ -38,6 +38,9 @@ var ListApplication = React.createClass({
 			return s.pk_source_id == sourceId;
 		})[0];
 	},
+	addSource : function(newSource) {
+		//todo
+	},
 	render: function() {
 		return(
 			<div>
@@ -55,6 +58,7 @@ var ListApplication = React.createClass({
 						<div>
 							<ListArea
 								getSource={this.getSource}
+								addSource={this.addSource}
 							/>
 						</div> :
 					null
@@ -65,6 +69,7 @@ var ListApplication = React.createClass({
 							<ListEditor
 								showAddSuggestions={true}
 								getSource={this.getSource}
+								addSource={this.addSource}
 							/>
 						</div> :
 					null

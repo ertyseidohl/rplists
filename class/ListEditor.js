@@ -52,9 +52,7 @@ var ListEditor = React.createClass({
 			state : STATE_SUBMITTING
 		});
 		var params = {
-			items : this.state.items.map(function(item) {
-				return item.content;
-			})
+			items : this.state.items
 		};
 		if (this.props.isExisting) {
 			params.list = this.props.listId;
@@ -100,6 +98,9 @@ var ListEditor = React.createClass({
 			showAddSuggestions : true
 		});
 	},
+	addSource : function() {
+		this.props.addSource('sourece');
+	},
 	render: function() {
 		if (this.props.isExisting && !this.props.listId) {
 			return (<div></div>);
@@ -137,7 +138,7 @@ var ListEditor = React.createClass({
 								<thead>
 									<tr>
 										<th>Item</th>
-										<th>Source</th>
+										<th>Source (<a onClick={this.addSource}>add new</a>)</th>
 										<th>Del</th>
 									</tr>
 								</thead>

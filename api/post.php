@@ -14,12 +14,13 @@
 	$list_id = $dbh->lastInsertId();
 
 	//insert items into db
-	$sth = $dbh->prepare('INSERT INTO items (fk_list_id, content) VALUES (:list_id, :content)');
+	$sth = $dbh->prepare('INSERT INTO items (fk_list_id, content, fk_source_id) VALUES (:list_id, :content, :source_id)');
 	foreach($_POST['items'] as $item) {
-		if ($item) {
+		if ($item && $item['content']) {
 			$sth->execute([
 				'list_id' => $list_id,
-				'content' => $item
+				'content' => $item['content'],
+				'source_id' => $item['source']
 			]);
 		}
 	}
