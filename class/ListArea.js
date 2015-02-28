@@ -67,6 +67,7 @@ var ListArea = React.createClass({
 					}
 					getSource={this.props.getSource}
 					addSource={this.props.addSource}
+					updateSources={this.props.updateSources}
 				/>
 			</div>
 		);

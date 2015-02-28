@@ -48,6 +48,7 @@ var ListEditor = React.createClass({
 		});
 	},
 	onSubmit : function(event) {
+		var self = this;
 		this.setState({
 			state : STATE_SUBMITTING
 		});
@@ -59,7 +60,7 @@ var ListEditor = React.createClass({
 		} else {
 			params.title = this.state.title;
 		}
-		var sources = this.getSource(-1).filter(function(s) {
+		var sources = this.props.getSource(-1).filter(function(s) {
 			return s.new_source;
 		});
 		if (sources.length) {
@@ -79,10 +80,14 @@ var ListEditor = React.createClass({
 				context : this,
 				success : function(result) {
 					if (result == "success") {
-						this.setState({
-							error : "",
-							state : STATE_SUBMITTED
-						});
+						this.props.updateSources(
+							function() {
+								self.setState({
+									error : "",
+									state : STATE_SUBMITTED
+								});
+							}
+						);
 					}
 				},
 				error : function(result) {

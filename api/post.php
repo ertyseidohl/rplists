@@ -25,7 +25,7 @@
 				'name' => $source['name']
 			]);
 			$real_source_id = $dbh->lastInsertId();
-			$sources_map[$real_source_id] = $source['source_id'];
+			$sources_map[$source['source_id']] = $real_source_id;
 		}
 	}
 
@@ -33,7 +33,11 @@
 	$sth = $dbh->prepare('INSERT INTO items (fk_list_id, content, fk_source_id) VALUES (:list_id, :content, :source_id)');
 	foreach($_POST['items'] as $item) {
 		if ($item && $item['content']) {
-			$source = array_key_exists($item['source'], $sources_map) ? $sources_map[$item['source']]: $item['source'];
+			if (!empty($item['source'])) {
+				$source = array_key_exists($item['source'], $sources_map) ? $sources_map[$item['source']] : $item['source'];
+			} else {
+				$source = 0;
+			}
 			$sth->execute([
 				'list_id' => $list_id,
 				'content' => $item['content'],

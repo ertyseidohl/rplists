@@ -18,13 +18,35 @@
 		die("no such list : " . (int)$_POST['list']);
 	}
 
+		//insert new sources
+	$sources_map = [];
+	if (!empty($_POST['sources'])) {
+		$sth = $dbh->prepare('INSERT INTO sources (name) VALUES (:name)');
+		foreach ($_POST['sources'] as $source) {
+			if (empty($source['name']) || empty($source['source_id'])) {
+				continue;
+			}
+			$sth->execute([
+				'name' => $source['name']
+			]);
+			$real_source_id = $dbh->lastInsertId();
+			$sources_map[$source['source_id']] = $real_source_id;
+		}
+	}
+
 	//insert items into db
-	$sth = $dbh->prepare('INSERT INTO items (fk_list_id, content) VALUES (:list, :content)');
+	$sth = $dbh->prepare('INSERT INTO items (fk_list_id, content, fk_source_id) VALUES (:list, :content, :source_id)');
 	foreach($_POST['items'] as $item) {
-		if ($item) {
+		if ($item && $item['content']) {
+			if (!empty($item['source'])) {
+				$source = array_key_exists($item['source'], $sources_map) ? $sources_map[$item['source']] : $item['source'];
+			} else {
+				$source = 0;
+			}
 			$sth->execute([
 				'list' => $_POST['list'],
-				'content' => $item
+				'content' => $item['content'],
+				'source_id' => $source
 			]);
 		}
 	}

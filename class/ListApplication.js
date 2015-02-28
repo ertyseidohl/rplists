@@ -1,5 +1,12 @@
 var ListApplication = React.createClass({
 	getInitialState : function() {
+		this.updateSources();
+		return {
+			tab : "browse",
+			sources : []
+		};
+	},
+	updateSources : function(callback) {
 		$.get(
 			"./api/sources.php",
 			{},
@@ -7,13 +14,12 @@ var ListApplication = React.createClass({
 				this.setState({
 					sources : eval(result)
 				});
+				if (callback) {
+					callback.call(this);
+				}
 			}.bind(this),
 			"json"
 		);
-		return {
-			tab : "browse",
-			sources : []
-		};
 	},
 	changeTabBrowse : function() {
 		this.setState({
@@ -69,6 +75,7 @@ var ListApplication = React.createClass({
 							<ListArea
 								getSource={this.getSource}
 								addSource={this.addSource}
+								updateSources={this.updateSources}
 							/>
 						</div> :
 					null
@@ -80,6 +87,7 @@ var ListApplication = React.createClass({
 								showAddSuggestions={true}
 								getSource={this.getSource}
 								addSource={this.addSource}
+								updateSources={this.updateSources}
 							/>
 						</div> :
 					null
