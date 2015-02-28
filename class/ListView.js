@@ -1,4 +1,9 @@
 var ListView = React.createClass({
+	onRoll: function() {
+		var item = this.props.items[Math.floor(Math.random() * this.props.items.length)]
+		// lolololol alert
+		alert(item.content + " (via " + this.props.getSource(item.fk_source_id).name + ")");
+	},
 	render: function() {
 		if (this.props.isLoading) {
 			return(
@@ -9,7 +14,7 @@ var ListView = React.createClass({
 				<table className="list-view">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th><img src="./img/die_face.png" alt="&#9860;" className="die" onClick={this.onRoll} /></th>
 							<th></th>
 							<th>Source</th>
 						</tr>

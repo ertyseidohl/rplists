@@ -118,3 +118,10 @@ textarea {
 .error {
 	color: red;
 }
+
+.die {
+	width: 1em;
+	height: 1em;
+	color: black;
+	cursor: pointer;
+}
