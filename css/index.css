@@ -50,6 +50,15 @@ input, button, select, textarea{
 	background-color: transparent;
 }
 
+td input,
+td select,
+td button {
+	width: 100%;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
 button.del {
 	min-width: 0;
 }
