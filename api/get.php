@@ -1,6 +1,8 @@
 <?php
 
-	$dbh = new PDO('mysql:host=localhost;dbname=ertyse5_rplists', 'ertyse5_rplists', '4rB4Qt7SNZD2WeLK');
+	include('./settings.php');
+
+	$dbh = new PDO('mysql:host=' . DB_ADDR . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 
 	if (isset($_GET['list'])){
 		$sth = $dbh->prepare('SELECT * from items WHERE fk_list_id = :list AND approved = 1 ');
