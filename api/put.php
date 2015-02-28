@@ -1,6 +1,6 @@
 <?php
 
-	include('./settings.php');
+	include('../settings.php');
 
 	$dbh = new PDO('mysql:host=' . DB_ADDR . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 
